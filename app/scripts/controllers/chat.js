@@ -9,16 +9,13 @@ angular.module('angularFirebaseChatApp')
             var message = {};
             message.name = $scope.name;
             message.text = $scope.message;
-            message.time = "15:15";
+            var currentDate = new Date();
+            message.time = currentDate.getHours() + ":" + currentDate.getMinutes();
             $scope.messages.$add(message)
             $scope.message = "";
         };
 
         $scope.clearMessage = function() {
             $scope.message = "";
-        }
-
-        $scope.clearChat = function() {
-            $scope.messages = [];
         }
   });
