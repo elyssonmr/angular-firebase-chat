@@ -1,5 +1,5 @@
 angular.module('angularFirebaseChatApp')
-    .controller('ChatController', function ($scope, $firebase) {
+    .controller('ChatController', function ($scope, $firebase, $filter) {
         var messagesRef = new Firebase("https://amber-fire-1008.firebaseio.com/messages");
         $scope.messages = $firebase(messagesRef);
         $('#loading').modal('show');
@@ -12,6 +12,7 @@ angular.module('angularFirebaseChatApp')
             $.each($('.list-group-item'), function(index, item) {
                 offset += $(item).height();
             });
+            offset += 400;
             list.scrollTop(list.scrollTop() + offset);
         });
         $scope.message = "";
@@ -19,10 +20,40 @@ angular.module('angularFirebaseChatApp')
         
         $scope.send = function() {
             var message = {};
+            var error = false;
+
+            var input = $('#name').parent();
+            if(!$scope.name.trim()) {                        
+                input.addClass("has-error");
+                if(!input.has("p").length) {
+                    input.append('<p class="text-danger">Name should not be empty.</p>')
+                }
+                error = true;
+            } else {
+                input.removeClass("has-error");
+                input.children().remove('p');
+            }
+
+            input = $('#message').parent();
+            if(!$scope.message.trim()) {
+                input.addClass("has-error");
+                if(!input.has("p").length) {
+                    input.append('<p class="text-danger">Message should not be empty.</p>')
+                }
+                error = true;
+            } else {
+                input.removeClass("has-error");
+                input.children().remove('p');
+            }
+
+            if(error) {
+                return;
+            }
+
             message.name = $scope.name;
             message.text = $scope.message;
             var currentDate = new Date();
-            message.time = currentDate.getHours() + ":" + currentDate.getMinutes();
+            message.time = $filter('date')(currentDate, "HH:mm")
             $scope.messages.$add(message)
             $scope.message = "";
         };
