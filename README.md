@@ -1,7 +1,7 @@
 Angular Firebase Chat
 =====================
 
-Simple example using Angular and Firebase.
+Simple example using [Angular](https://angularjs.org/) and [Firebase](https://www.firebase.com/).
 
 This project has been generated using [Yoeman](http://yeoman.io/) with [angularJS generator](https://github.com/yeoman/generator-angular)
 
