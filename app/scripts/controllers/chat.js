@@ -7,8 +7,12 @@ angular.module('angularFirebaseChatApp')
             $('#loading').modal('hide');
         });
         $scope.messages.$on("child_added", function(childSnapshot, prevChildName) {
-            var list = $("ul.list-group");
-            list.scrollTop(list.scrollTop() + 400);
+            var list = $("#messages-panel .list-group");
+            var offset = 0;
+            $.each($('.list-group-item'), function(index, item) {
+                offset += $(item).height();
+            });
+            list.scrollTop(list.scrollTop() + offset);
         });
         $scope.message = "";
         $scope.name = "";
