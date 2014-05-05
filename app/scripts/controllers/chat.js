@@ -1,6 +1,6 @@
 angular.module('angularFirebaseChatApp')
     .controller('ChatController', function ($scope, $firebase, $filter) {
-        var messagesRef = new Firebase("https://amber-fire-1008.firebaseio.com/messages");
+        var messagesRef = new Firebase("https://elyssonmr.firebaseio.com/messages");
         $scope.messages = $firebase(messagesRef);
         $('#loading').modal('show');
         $scope.messages.$on("loaded", function() {
